@@ -2,7 +2,9 @@ const routes = require("express").Router();
 const {
   getProductsByCatagories,
   updateSingleProductCategory,
-  getProductParentCategories
+  getProductParentCategories,
+  updateSingleProductSubCategory,
+//   getProductSubCategroies
 } = require("./controllers/ProductController");
 const {
   SignupWithEmailOrPhoneandPassword,
@@ -30,6 +32,11 @@ routes.delete("/deleteUser/:id", deleteUser);
 //Main Routes
 routes.get("/getProductsByCatagories", getProductsByCatagories);
 routes.get("/getProductParentCategories", getProductParentCategories);
+// routes.get("/getProductSubCategroies", getProductSubCategroies);
+// routes.get("/updateSingleProductSubCategory", updateSingleProductSubCategory);
+
+
+
 // routes.get("/updateSingleProductCategory", updateSingleProductCategory);
 
 module.exports = routes;
