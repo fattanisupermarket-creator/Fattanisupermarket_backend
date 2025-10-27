@@ -4,6 +4,8 @@ const {
   updateSingleProductCategory,
   getProductParentCategories,
   updateSingleProductSubCategory,
+  getProductsBySubcategories,
+  searchProducts,
 //   getProductSubCategroies
 } = require("./controllers/ProductController");
 const {
@@ -32,6 +34,12 @@ routes.delete("/deleteUser/:id", deleteUser);
 //Main Routes
 routes.get("/getProductsByCatagories", getProductsByCatagories);
 routes.get("/getProductParentCategories", getProductParentCategories);
+routes.get("/products-by-subcategories", getProductsBySubcategories);
+routes.get("/searchProducts", searchProducts);
+
+
+
+
 // routes.get("/getProductSubCategroies", getProductSubCategroies);
 // routes.get("/updateSingleProductSubCategory", updateSingleProductSubCategory);
 
