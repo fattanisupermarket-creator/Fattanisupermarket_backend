@@ -20,6 +20,10 @@ const {
   updateUserById,
 } = require("./controllers/AuthController");
 
+const {
+    CreateOrder
+} = require("./controllers/OrderController");
+
 
 //Auth Routes
 routes.post("/signupWithEmailOrPhoneandPassword", SignupWithEmailOrPhoneandPassword);
@@ -38,6 +42,8 @@ routes.get("/products-by-subcategories", getProductsBySubcategories);
 routes.get("/searchProducts", searchProducts);
 
 
+//Order Apis
+routes.post("/CreateOrder", CreateOrder);
 
 
 // routes.get("/getProductSubCategroies", getProductSubCategroies);
