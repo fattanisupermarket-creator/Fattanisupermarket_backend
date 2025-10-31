@@ -21,7 +21,8 @@ const {
 } = require("./controllers/AuthController");
 
 const {
-    CreateOrder
+    CreateOrder,
+    GetMyOrders
 } = require("./controllers/OrderController");
 
 
@@ -44,6 +45,9 @@ routes.get("/searchProducts", searchProducts);
 
 //Order Apis
 routes.post("/CreateOrder", CreateOrder);
+routes.get("/GetMyOrders", GetMyOrders);
+
+
 
 
 // routes.get("/getProductSubCategroies", getProductSubCategroies);

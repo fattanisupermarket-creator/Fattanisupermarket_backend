@@ -12,7 +12,7 @@ const OrderSchema = new mongoose.Schema({
     type: Array,
   },
   Subtotal: {
-    type: Int32Array,
+    type: Number,
   },
   discount: {
     type: String,
@@ -21,10 +21,10 @@ const OrderSchema = new mongoose.Schema({
     type: Boolean,
   },
   Total_Price: {
-    type: Boolean,
+    type: Number,
   },
   Delivery_Charges: {
-    type: Boolean,
+    type: Number,
   },
   Order_Status: {
     type: String,
@@ -32,6 +32,8 @@ const OrderSchema = new mongoose.Schema({
     default: "New_Order",
     required: true,
   },
+},{
+    timestamps:true
 });
 
 module.exports = mongoose.model("Order", OrderSchema);

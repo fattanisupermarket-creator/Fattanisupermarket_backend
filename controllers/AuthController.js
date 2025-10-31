@@ -223,7 +223,7 @@ async function loginWithEmailOrPhone(req, res) {
 }
 
 async function SignupWithEmailOrPhoneandPassword(req, res) {
-  const { email, password, phone, FCMToken } = req.body;
+  const { email, password, name, FCMToken } = req.body;
 
   try {
     const signJwt = JWT.sign(req.body, process.env.JWT_SECRET_KEY, {
@@ -329,7 +329,8 @@ async function VerifyOtpAndCreate(req, res) {
   try {
     const { token, otp, phone } = req.body;
 
-    if (token && otp) {
+    if (token && otp) 
+      {
       const getData = JWT.verify(token, process.env.JWT_SECRET_KEY);
       getData.email =getData.email.toLowerCase().trim();
       const identifier = getData.email || getData.phone;
@@ -360,6 +361,7 @@ async function VerifyOtpAndCreate(req, res) {
         const hash = await bcrypt.hash(getData.password, salt);
 
         const createUser = new UserModel({
+          name: getData.name,
           email: getData.email,
           username: getData.username,
           password: hash,
@@ -389,44 +391,44 @@ async function VerifyOtpAndCreate(req, res) {
         });
       }
 
-      if (getData.phone) {
-        const existingUser = await UserModel.findOne({ phone: getData.phone });
+      // if (getData.phone) {
+      //   const existingUser = await UserModel.findOne({ phone: getData.phone });
 
-        if (existingUser) {
-          return res.status(200).json({
-            success: false,
-            message: "A user with this phone number already exists.",
-          });
-        }
+      //   if (existingUser) {
+      //     return res.status(200).json({
+      //       success: false,
+      //       message: "A user with this phone number already exists.",
+      //     });
+      //   }
 
-        const createUser = new UserModel({
-          phone: getData.phone,
-          username: getData.username,
-          FCMToken: getData.FCMToken,
-        });
+      //   const createUser = new UserModel({
+      //     phone: getData.phone,
+      //     username: getData.username,
+      //     FCMToken: getData.FCMToken,
+      //   });
 
-        const result = await createUser.save();
+      //   const result = await createUser.save();
 
-        await OtpModel.deleteOne({ EmailOrPhone: identifier });
+      //   await OtpModel.deleteOne({ EmailOrPhone: identifier });
 
-        const userById = await UserModel.findById(result._id).select(
-          "-password"
-        );
-        const signJwt = JWT.sign(
-          { _id: userById._id, phone: userById.phone },
-          process.env.JWT_SECRET_KEY,
-          {
-            expiresIn: "5y",
-          }
-        );
+      //   const userById = await UserModel.findById(result._id).select(
+      //     "-password"
+      //   );
+      //   const signJwt = JWT.sign(
+      //     { _id: userById._id, phone: userById.phone },
+      //     process.env.JWT_SECRET_KEY,
+      //     {
+      //       expiresIn: "5y",
+      //     }
+      //   );
 
-        res.status(201).json({
-          success: true,
-          message: "User account created successfully via phone number",
-          data: userById,
-          token: signJwt,
-        });
-      }
+      //   res.status(201).json({
+      //     success: true,
+      //     message: "User account created successfully via phone number",
+      //     data: userById,
+      //     token: signJwt,
+      //   });
+      // }
     }
 
     if (phone && otp) {

@@ -7,6 +7,8 @@ const UserSchema = new mongoose.Schema({
   phone: { type: String },
   FCMToken: { type: String },
   isDeleted: { type: Boolean, default: false },
+},{
+  timestamps:true
 });
 
 module.exports = mongoose.model("User", UserSchema);

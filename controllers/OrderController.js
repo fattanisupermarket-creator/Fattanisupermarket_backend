@@ -4,18 +4,33 @@ const OrderModal = require("../models/OrderModal");
 
 async function CreateOrder(req, res) {
   try {
-    console.log("req.body",req.body)
-
-    return
-
     const CreateOrder = await OrderModal.create(req.body);
     await CreateOrder.save();
 
     res.send({
-        success:true,
-        message:"Order created successfully",
-        CreateOrder:CreateOrder
-    })
+      success: true,
+      message: "Order created successfully",
+      CreateOrder: CreateOrder,
+    });
+  } catch (error) {
+    console.log("error", error);
+  }
+}
+
+async function GetMyOrders(req, res) {
+  const { UserId } = req.query;
+
+  try {
+    const result = await OrderModal.find({ OrderById: UserId }).populate(
+      "OrderById",
+      "-password"
+    ); // ✅ must match schema field name
+
+    res.send({
+      success: true,
+      message: "All Order fetched",
+      data: result,
+    });
   } catch (error) {
     console.log("error", error);
   }
@@ -23,4 +38,5 @@ async function CreateOrder(req, res) {
 
 module.exports = {
   CreateOrder,
+  GetMyOrders,
 };
